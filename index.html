@@ -13,6 +13,17 @@
     <div class="container mt-4">
         <h1 class="display-4 text-center">
           <h1><i class="fas fa-book text-primary"></i> My<span class="text-primary">Book</span>List</h1>
+          <table class="table table-striped mt-5">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN#</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="book-list"></tbody>
+          </table>
           <form id="book-form">
             <div class="form-group">
               <label for="title">Title</label>
@@ -27,18 +38,7 @@
               <input type="text" id="isbn" class="form-control">
             </div>
             <input type="submit" value="Add Book" class="btn btn-primary btn-block">
-          </form>
-          <table class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>ISBN#</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="book-list"></tbody>
-          </table>
+          </form>          
       </div>
     <script src="app.js"></script>
 </body>
