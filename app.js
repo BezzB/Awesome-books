@@ -68,7 +68,34 @@ class UI{
 }
 
 // storage class; Manages storage
+class Store{
+   static getBooks() {
+    let books;
+    if (localStorage.getItem ('books') ===null){
+        books =[];
+        
+    }else{
+        books =JSON.parse(localStorage.getItem('books'));
+    }
+    return books;
 
+    }
+    static addBooks() {
+        const books =Store.getBooks();
+        books.push(book);
+        localStorage.setItem('books',JSONstringfy(books));
+
+    }
+    static removegetBooks() {
+        const books=Store.getBooks();
+        books.forEach((book, index) => {
+            if(book.isbn===isbn) {
+
+            }
+        })
+
+    }
+}
 
 // event; Display books
 document.addEventListener('DOMContentLoaded', UI.displayBooks); 
