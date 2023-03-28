@@ -54,6 +54,8 @@ class UI{
         const container =document.querySelector('.container');
         const form=document.querySelector('#book-form');
         container.insertBefore(div, form);
+        // vanish in 4 seconds
+        setTimeout(() => document.querySelector('.alert').remove(), 4000);
         
     }
     
@@ -65,7 +67,8 @@ class UI{
     }
 }
 
-// storage class; handles storage
+// storage class; Manages storage
+
 
 // event; Display books
 document.addEventListener('DOMContentLoaded', UI.displayBooks); 
@@ -90,6 +93,8 @@ document.querySelector('#book-form').addEventListener('submit', (e)=>
 
     //add book to UI
     UI.addBookToList(book);
+    // show sucess message 
+    UI.showAlert('Book Added', 'sucess');
 
     //Clear fields 
     UI.clearFields(book);
@@ -101,5 +106,10 @@ document.querySelector('#book-form').addEventListener('submit', (e)=>
 document.querySelector('#book-list').addEventListener('click', (e) => 
 {
     UI.deleteBook(e.target)
+
+    // show messahe sucess 
+
+
+    UI.showAlert('Book Removed', 'sucess');
 
 });
