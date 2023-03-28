@@ -1,5 +1,4 @@
 # Awesome-books
-# Setup-mobile-first
 setting up the mobile first project 
 <a name="readme-top"></a>
 
