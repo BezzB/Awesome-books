@@ -1,3 +1,31 @@
+// Store class: manages storage
+class Store {
+  static getBooks() {
+    let books;
+    if (localStorage.getItem('books') === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('books'));
+    }
+    return books;
+  }
+
+  static addBook(book) {
+    const books = Store.getBooks();
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  static removeBook(isbn) {
+    const books = Store.getBooks();
+    const index = books.findIndex(book => book.isbn === isbn);
+    if (index !== -1) {
+      books.splice(index, 1);
+      localStorage.setItem("books", JSON.stringify(books));
+    }
+  }
+}
+
 // Book class represents a book 
 class Book {
   constructor(title, author, isbn) {
@@ -15,8 +43,8 @@ class UI {
   }
 
   static addBookToList(book) {
-    const list = document.querySelector("#book-list");
-    const row = document.createElement("tr");
+    const list = document.querySelector('#book-list');
+    const row = document.createElement('tr');
     row.innerHTML = `
       <td>${book.title}</td>
       <td>${book.author}</td>
@@ -53,33 +81,6 @@ class UI {
   }
 }
 
-// Store class: manages storage
-class Store {
-  static getBooks() {
-    let books;
-    if (localStorage.getItem("books") === null) {
-      books = [];
-    } else {
-      books = JSON.parse(localStorage.getItem("books"));
-    }
-    return books;
-  }
-
-  static addBook(book) {
-    const books = Store.getBooks();
-    books.push(book);
-    localStorage.setItem("books", JSON.stringify(books));
-  }
-
-  static removeBook(isbn) {
-    const books = Store.getBooks();
-    const index = books.findIndex(book => book.isbn === isbn);
-    if (index !== -1) {
-      books.splice(index, 1);
-      localStorage.setItem("books", JSON.stringify(books));
-    }
-  }
-}
 
 // Event: display books
 document.addEventListener("DOMContentLoaded", UI.displayBooks);
