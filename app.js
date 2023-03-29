@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable default-case */
 /* eslint-disable max-classes-per-file */
 // your code with multiple classes
 
@@ -67,13 +69,12 @@ class UI {
     }
   }
 
-  static showAlert(message, className) {
+  static showAlert(message, className, sectionId) {
     const div = document.createElement('div');
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('.container');
-    const form = document.querySelector('#book-form');
-    container.insertBefore(div, form);
+    const section = document.querySelector(`#${sectionId}`);
+    section.insertBefore(div, section.firstChild);
     setTimeout(() => div.remove(), 4000);
   }
 
@@ -101,7 +102,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     const book = new Book(title, author, isbn);
     UI.addBookToList(book);
     Store.addBook(book);
-    UI.showAlert('Book added', 'success');
+    UI.showAlert('Book Added', 'success', 'add-book-form');
     UI.clearFields();
   }
 });
@@ -112,5 +113,79 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
   Store.removeBook(
     e.target.closest('tr').querySelectorAll('td')[2].textContent,
   );
-  UI.showAlert('Book removed', 'success');
+  UI.showAlert('Book removed', 'success', 'book-list-c');
+});
+
+// Get the book list section
+const bookListSection = document.getElementById('book-list-c');
+
+// Hide the other sections
+const addBookSection = document.getElementById('add-book-form');
+const contactInfoSection = document.getElementById('contact-info');
+addBookSection.style.display = 'none';
+contactInfoSection.style.display = 'none';
+
+// Add an event listener to each navigation link
+document.querySelectorAll('.nav-link').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent the default link behavior
+
+    // Hide all sections except for the selected one
+    switch ((e).target.hash) {
+      case '#book-list-c':
+        bookListSection.style.display = 'block';
+        addBookSection.style.display = 'none';
+        contactInfoSection.style.display = 'none';
+        break;
+      case '#add-book-form':
+        bookListSection.style.display = 'none';
+        addBookSection.style.display = 'block';
+        contactInfoSection.style.display = 'none';
+        break;
+      case '#contact-info':
+        bookListSection.style.display = 'none';
+        addBookSection.style.display = 'none';
+        contactInfoSection.style.display = 'block';
+        break;
+    }
+  });
+});
+
+// Show the book list section by default
+bookListSection.style.display = 'block';
+
+const contactForm = document.querySelector('#contact-info form');
+
+// select the form and add a submit event listener
+document.querySelector('#contact-info form').addEventListener('submit', (e) => {
+  e.preventDefault(); // prevent the default form submission behavior
+
+  // get the input values
+  const name = document.querySelector('#name').value;
+  const email = document.querySelector('#email').value;
+  const message = document.querySelector('#message').value;
+
+  // create a new message object with the input values
+  const newMessage = {
+    name,
+    email,
+    message,
+    timestamp: new Date().getTime(), // add a timestamp to track when the message was sent
+  };
+
+  // get the existing messages from local storage, or initialize an empty array
+  // eslint-disable-next-line prefer-const
+  let messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+  // add the new message to the array
+  messages.push(newMessage);
+
+  // store the updated messages array in local storage
+  localStorage.setItem('messages', JSON.stringify(messages));
+
+  // show a success message to the user
+  UI.showAlert('Message sent', 'success', 'contact-info');
+
+  // reset the form inputs
+  e.target.reset();
 });
