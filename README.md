@@ -130,9 +130,13 @@ In order to run this project you need:
 
 > Mention all of the collaborators of this project.
 
-👤 **Author1**
+👤 **Barnet**
 
 - GitHub: [@bezzB]
+- 
+👤 **Massa**
+
+- GitHub: [@massazoum]
 - 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
